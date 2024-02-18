@@ -1,9 +1,9 @@
-## Exatool
+# Exatool
 
 Exatool is written in python and is able to retrieve the full text of an article (when free). Its purpose is to allow a better understanding of the material used by the scientific community using a keyword research. Python scripts to visualize the data are also available.
 The development is still ongoing and currently limited to the PubMed database of research articles. 
 
-### Prerequisite 
+## Prerequisite 
 
 To run the programs smoothly, you need to have installed the following packages : 
 - bs4
@@ -15,13 +15,13 @@ To run the programs smoothly, you need to have installed the following packages 
 
 All those packages can be installed with `pip install <package_name>` from the terminal
 
-### Installation
+## Installation
 
 To install the Exatool program, run the following command line in your terminal :
 
  `git clone https://github.com/ZeepReactorr/exatools`
 
-### Usage
+## Usage
 
 To run the program, enter the following command line in your terminal, filling the gaps with the required parameters :
 
@@ -39,7 +39,7 @@ This will count the respective occurency of Nanopore or Illumina sequencing for 
 
 > The **reviews** are **filtered out**. Only research papers with methods are taken into account.
 
-### Credit
+## Credit
 
 If you found this tool useful during your research, please cite :
 
