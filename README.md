@@ -33,7 +33,7 @@ python ~/PATH/TO/exatool.py ~/PATH/TO/OUTPUT_DIR 'Pubmed URL' keyword_1 keyword_
 
 The program will keep the progression updated in the console. The ouptut graphical plot will be saved in the output directory you indicated as well as the intermediary files. 
 **Be careful that the date range in your Pubmed query and indicated date range variable __match__, if they don't, the plot will not be correct.** <br>
-**Make sure that there the URL is between quotes, as the command will return an error otherwise.**
+**Make sure that the URL is between quotes, as the command will return an error otherwise.**
 
 Example of prompt : 
 
