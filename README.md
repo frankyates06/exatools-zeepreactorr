@@ -1,4 +1,4 @@
-# Exatool
+![image](https://github.com/ZeepReactorr/exatools/assets/151944715/30ab15a9-991d-462d-be04-307068d3c92a)# Exatool
 
 Exatool is written in python and is able to retrieve the full text of an article (when free). Its purpose is to allow a better understanding of the material used by the scientific community using a keyword research. Python scripts to visualize the data are also available.
 The development is still ongoing and currently limited to the PubMed database of research articles. 
@@ -44,3 +44,4 @@ This will count the respective occurency of Nanopore or Illumina sequencing for 
 If you found this tool useful during your research, please cite :
 
 BETTIATI M. (2024). ZeepReactorr/exatools [Python]. https://github.com/ZeepReactorr/exatools (Original work published 2024)
+
