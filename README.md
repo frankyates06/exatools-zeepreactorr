@@ -20,14 +20,16 @@ All those packages can be installed with `pip install <package_name>` from the t
 ## Installation
 
 To install the Exatool program, run the following command line in your terminal :
-
- `git clone https://github.com/ZeepReactorr/exatools`
+```sh
+git clone https://github.com/ZeepReactorr/exatools
+```
 
 ## Usage
 
 To run the program, enter the following command line in your terminal, filling the gaps with the required parameters :
-
-`python ~/PATH/TO/exatool.py ~/PATH/TO/OUTPUT_DIR 'Pubmed URL' keyword_1 keyword_2... keyword_n date_range_start(YYYY) date_range_end(YYYY)`
+```sh
+python ~/PATH/TO/exatool.py ~/PATH/TO/OUTPUT_DIR 'Pubmed URL' keyword_1 keyword_2... keyword_n date_range_start(YYYY) date_range_end(YYYY)
+```
 
 The program will keep the progression updated in the console. The ouptut graphical plot will be saved in the output directory you indicated as well as the intermediary files. 
 **Be careful that the date range in your Pubmed query and indicated date range variable __match__, if they don't, the plot will not be correct.** <br>
@@ -35,7 +37,9 @@ The program will keep the progression updated in the console. The ouptut graphic
 
 Example of prompt : 
 
-`python ~/PATH/TO/exatool.py ~/PATH/TO/OUTPUT/DIRECTORY 'https://pubmed.ncbi.nlm.nih.gov/?term=prokaryote+sequencing&filter=simsearch2.ffrft' Illumina Nanopore 2010 2024`
+```sh
+python ~/PATH/TO/exatool.py ~/PATH/TO/OUTPUT/DIRECTORY 'https://pubmed.ncbi.nlm.nih.gov/?term=prokaryote+sequencing&filter=simsearch2.ffrft' Illumina Nanopore 2010 2024
+```
 
 This will count the respective occurency of Nanopore or Illumina sequencing for articles related to Prokaryote sequencing throughout pubmed and automatically generate a graph displaying just that. 
 
