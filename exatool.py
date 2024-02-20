@@ -96,8 +96,8 @@ def sci(keywords):
         Searched_material.write(link + '\t' + date + '\t' + str(max(dico, key=dico.get)) + '\n')
         dico = {}
                 
-    for i in dico_keywords:
-        print(i, str(dico_keywords[i]))
+    for key, res in dico_keywords.items:
+        print(key, res)
 
     #Summarize the results in the console to give a preview of the results
     print('Corresponding articles found :', number)
@@ -194,7 +194,7 @@ def switch_page(url, pure_url):
     Results = open('Results.txt', 'w')
     
     while count <= limite :
-        print(dl_intel(link, pure_url), 'Progression :', (count/limite)*100)
+        print(dl_intel(link, pure_url), 'Progression :',  f'Progression : {np.round((count/limite)*100)}')
         link = url + '&page=' + str(count)
         count+=1
         K = open('DOI_trash.txt', 'r')
