@@ -37,7 +37,7 @@ def sci(keywords):
         i = i.split('\t')
 
         #indicates progression of the program
-        print('article n°' + str(signal) + '\t' + 'loading :' + str(np.round((signal/limite)*100)) + '%')
+        print(f'article n° {str(signal)}\tloading : {np.round((signal/limite)*100)}%')
         signal+=1
                 
         #rebuild the link to the full article
@@ -96,13 +96,13 @@ def sci(keywords):
         Searched_material.write(link + '\t' + date + '\t' + str(max(dico, key=dico.get)) + '\n')
         dico = {}
                 
-    for key, res in dico_keywords.items:
+    for key, res in dico_keywords.items():
         print(key, res)
 
     #Summarize the results in the console to give a preview of the results
-    print('Corresponding articles found :', number)
-    print('impossible links to retrieve :', count_bad_links)
-    
+    print(f'Corresponding articles found : {number}')
+    print(f'impossible links to retrieve : {count_bad_links}')
+    F.close()
     return 'Done'
     
 def tendency(keywords, date_range):
@@ -194,7 +194,7 @@ def switch_page(url, pure_url):
     Results = open('Results.txt', 'w')
     
     while count <= limite :
-        print(dl_intel(link, pure_url), 'Progression :',  f'Progression : {np.round((count/limite)*100)}')
+        print(dl_intel(link, pure_url), f'Progression : {np.round((count/limite)*100)}%')
         link = url + '&page=' + str(count)
         count+=1
         K = open('DOI_trash.txt', 'r')
@@ -220,4 +220,3 @@ if __name__ == "__main__":
     print('Sorting done, preparig visual representation')
     tendency(keywords, date_range)
     print('Figure is ready')
-
