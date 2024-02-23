@@ -7,6 +7,7 @@ import re
 import sys
 import numpy as np
 from matplotlib import pyplot as plt
+from matplotlib.pyplot import figure
 import urllib.request as ul
 from bs4 import BeautifulSoup as soup
 
@@ -48,7 +49,7 @@ def sci(keywords):
         try :
             retrieved_data = req.get(link)
             my_raw_data = retrieved_data.content
-        except:
+        except Exception:
             count_bad_links +=1
             continue
         
@@ -62,7 +63,7 @@ def sci(keywords):
                     txt = read_pdf.pages[page].extract_text()
                     txt = txt.encode('UTF-8', errors = 'ignore')
                     output = str(txt.strip())                
-            except:
+            except Exception:
                 pass
         
         #filter the CSS and html beacons out of the file             
@@ -88,10 +89,10 @@ def sci(keywords):
                     
             output = re.sub("\n|\r|\rn", '', output) 
             output = output[output.find('Abstract'):]
-            output = str(output[:output.find('References')])            
+            output = str(output[:output.find('References')]).lower()            
                         
         #write the link in the output document if the conditions are fullfilled : if it is exactly the desired material.        
-        dico = {keywords[i]:output.count(keywords[i]) for i in range(0, len(keywords))}
+        dico = {keywords[i]:output.count(keywords[i].lower()) for i in range(0, len(keywords))}
         dico_keywords[max(dico, key=dico.get)] += 1
         Searched_material.write(link + '\t' + date + '\t' + str(max(dico, key=dico.get)) + '\n')
         dico = {}
@@ -105,28 +106,36 @@ def sci(keywords):
     F.close()
     return 'Done'
     
-def tendency(keywords, date_range):
-    #Initialize the dates to position the temporality of the articles
-    dates = [i for i in range(int(date_range[0]), int(date_range[1]))]
-
+def tendency(keywords):
     #open results files
     results = open('Searched_material.txt', 'r', encoding='utf-8')
     
     #Process the data in list containing only the date in which the articles were written
     list_material_date = [(i.split('\t')[1].strip('\n'),i.split('\t')[2].strip('\n')) for i in results.readlines()]
     
+    #Initialize the dates to position the temporality of the articles
+    date_list = [int(i[0]) for i in list_material_date]
+    date_range = (min(date_list), max(date_list))
+    dates = [i for i in range(date_range[0]-1, date_range[1]-1)]
+    
     #Count each date occurence as each article has an associated publication date. Thus number of date = number of articles
     count_dates = {i:[int(j[0]) for j in list_material_date if j[1] == i] for i in keywords}
-    
+
+    dec = 0
+    fig = figure(figsize=(11, 5))
     for i in count_dates:
         res = [count_dates[i].count(j) for j in dates]
-        fig = plt.bar(dates, res, label=i)
+        dates = [i+dec for i in dates]
+        plt.bar(dates, res, label=i, width = 0.4)
         plt.xlabel('time')
         plt.ylabel('number of publications')
         plt.title(f'Global distribution of the publications between {date_range[0]} and {date_range[1]}')
+        dec += 0.25
     
+
     plt.legend()
     plt.savefig('plot.png')
+    results.close()
 
 def dl_intel(url, pure_url):
     #Initializing variables
@@ -205,18 +214,15 @@ def switch_page(url, pure_url):
     return 'All Done !'
 
 if __name__ == "__main__":
-    args = sys.argv
-    date_range = args[-2:]
-    keywords = list(' '.join(sys.argv[3:-2]).split())
+    keywords = list(' '.join(sys.argv[3:]).split())    
     url = str(sys.argv[2])
     dir_output = str(sys.argv[1])
     pure_url = 'https://pubmed.ncbi.nlm.nih.gov/'
     
     os.chdir(dir_output)
-
     switch_page(url, pure_url)
     print('Articles retrieved successfully, beginning sorting...')
     sci(keywords)
     print('Sorting done, preparig visual representation')
-    tendency(keywords, date_range)
+    tendency(keywords)
     print('Figure is ready')
