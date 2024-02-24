@@ -49,5 +49,5 @@ This will count the respective occurency of Nanopore or Illumina sequencing for 
 
 If you found this tool useful during your research, please cite :
 
-BETTIATI M. (2024). ZeepReactorr/exatools [Python]. https://github.com/ZeepReactorr/exatools (Original work published 2024)
+BETTIATI M. (2024). Exatools [Python]. https://github.com/ZeepReactorr/exatools (Original work published 2024)
 
