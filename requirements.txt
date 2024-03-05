@@ -1,7 +1,7 @@
 streamlit
 bs4
 requests
-PyPDF2
+PyPDF4
 io
 os
 re

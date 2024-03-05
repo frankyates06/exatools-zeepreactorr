@@ -2,7 +2,7 @@
 import streamlit as st
 from bs4 import BeautifulSoup as soup
 import requests as req
-import PyPDF2
+import PyPDF4
 from io import BytesIO
 import os
 import re
