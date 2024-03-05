@@ -1,4 +1,17 @@
-  # Streamlit app title
+import streamlit as st
+from bs4 import BeautifulSoup as soup
+import requests as req
+import PyPDF4  # Changed to PyPDF4 for compatibility with PDF processing
+from io import BytesIO
+import os
+import re
+import numpy as np
+from matplotlib import pyplot as plt
+from matplotlib.pyplot import figure
+import urllib.request as ul
+
+
+# Streamlit app title
   st.title('PubMed Article Analysis Tool')
 
   # Sidebar for user input
