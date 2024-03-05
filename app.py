@@ -40,7 +40,8 @@ def dl_intel(url, pure_url):
             responseTxt_4 = n.text.encode('UTF-8')
         responseTxt_4 = str(responseTxt_4.strip())
         responseTxt_4 = responseTxt_4[2:-1]
-        DOI_trash.write(responseTxt_4 + '\t' + date + '\n')
+        DOI_trash.write(responseTxt_4 + '	' + date + '
+')
 
     DOI_trash.close()
     return True
@@ -54,6 +55,7 @@ def switch_page(url, pure_url):
     limite = int(re.findall('[0-9]+', str(locator[0]))[0])//10 + 1
     count = 1
     Results = open('Results.txt', 'w')
+    progress_bar = st.progress(0)  # Initialize progress bar
     while count <= limite:
         print(dl_intel(url, pure_url), f'Progression : {np.round((count/limite)*100)}%')
         url = url + '&page=' + str(count)
@@ -62,7 +64,9 @@ def switch_page(url, pure_url):
         for lines in K.readlines():
             Results.write(lines)
         K.close()
+    progress_bar.empty()  # Remove progress bar when done
     Results.close()
+
 
 def sci(keywords):    
     F = open('Results.txt', 'r', encoding='utf-8')
@@ -73,10 +77,12 @@ def sci(keywords):
         pass
     limite = count + 1
     F.seek(0)  # Reset file pointer to the beginning
+    progress_bar = st.progress(0)  # Initialize progress bar
 
     for i in F.readlines(): 
-        i = i.strip('\n').split('\t')
-        print(f'article n° {str(signal)}\tloading : {np.round((signal/limite)*100)}%')
+        i = i.strip('
+').split('	')
+        print(f'article n° {str(signal)}	loading : {np.round((signal/limite)*100)}%')
         signal += 1
         link = 'https://doi.org/' + i[0]
         date = i[1]
@@ -88,10 +94,12 @@ def sci(keywords):
             continue
 
         output, dico_keywords = process_article(my_raw_data, keywords)
-        Searched_material.write(link + '\t' + date + '\t' + str(max(dico_keywords, key=dico_keywords.get)) + '\n')
+        Searched_material.write(link + '	' + date + '	' + str(max(dico_keywords, key=dico_keywords.get)) + '
+')
 
     F.close()
     Searched_material.close()
+    progress_bar.empty()  # Remove progress bar when done
     print_results(dico_keywords, count_bad_links)
 
 def process_article(raw_data, keywords):
@@ -113,18 +121,22 @@ def process_article(raw_data, keywords):
         for t in txt:
             if t.parent.name not in blacklist:
                 output += '{}'.format(t)
-        output = re.sub("\n|\r|\rn", '', output)
+        output = re.sub("
+|
+|
+n", '', output)
         output = output[output.find('Abstract'):]
         output = str(output[:output.find('References')]).lower()
     dico_keywords = {keyword: output.count(keyword.lower()) for keyword in keywords}
     return output, dico_keywords
 
 def print_results(dico_keywords, count_bad_links):
-    for key, res in dico_keywords.items():
-        print(key, res)
-    print(f'impossible links to retrieve : {count_bad_links}')
+    # Use Streamlit to display results as a table instead of printing
+    st.table(dico_keywords)
+    st.write(f'impossible links to retrieve : {count_bad_links}')
 
-def tendency(keywords):
+
+  def tendency(keywords):
     results = open('Searched_material.txt', 'r', encoding='utf-8')
     list_material_date = [(i.split('\t')[1].strip('\n'), i.split('\t')[2].strip('\n')) for i in results.readlines()]
     date_list = [int(i[0]) for i in list_material_date]
@@ -148,6 +160,15 @@ def tendency(keywords):
     plt.savefig('trend_bar_graph.png')
     results.close()
 
+
+    # New addition: Display a table of the keyword counts over the years
+    table_data = [{"Year": year} for year in dates]
+    for keyword, counts in count_dates.items():
+        for i, count in enumerate(counts):
+            table_data[i][keyword] = count
+    st.table(table_data)
+    results.close()
+
 def main():
     st.title("PubMed Article Analysis Tool")
 
@@ -169,10 +190,7 @@ def main():
         sci(keywords)
         st.success("Sorting done, preparing visual representation...")
         tendency(keywords)
-        st.success("Figure is ready. Check the trend_bar_graph.png file for the bar graph.")
-
-        # Display the image
-        st.image("trend_bar_graph.png")
+        st.success("Visual representation is ready.")
 
 if __name__ == "__main__":
     main()
