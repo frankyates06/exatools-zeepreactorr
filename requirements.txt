@@ -4,5 +4,4 @@ requests
 PyPDF4
 numpy
 matplotlib 
-matplotlib.pyplot
 urllib.request
