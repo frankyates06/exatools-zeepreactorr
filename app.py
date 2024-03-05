@@ -27,9 +27,15 @@ def dl_intel(url, pure_url):
       locator = db.findAll('a', {'class': 'docsum-title'}, href=True)
       for link in locator:
           DOI = link['href'].split('/')[-1]
-          response = req.get(f"https://pubmed.ncbi.nlm.nih.gov/{DOI}/")
+          response = req.get(f"{pure_url}{DOI}/")
           db_2 = soup(response.text, "html.parser")
-          date = db_2.find('span', {'class': 'cit'}).text.split(';')[0].strip()
+          locator_date = db_2.find('span', {'class': 'cit'})
+          # Check if the date span exists before trying to access its text
+          if locator_date:
+              date = locator_date.text.split(';')[0].strip()
+          else:
+              date = "Unknown"  # Use a placeholder or handle the absence as needed
+
           DOI_file.write(f"{DOI}\t{date}\n")
 
 def switch_page(url, pure_url):
