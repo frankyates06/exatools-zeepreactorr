@@ -55,17 +55,23 @@ def sci(keywords):
   Searched_material = 'Searched_material.txt'
   with open(Results, 'r', encoding='utf-8') as F, open(Searched_material, 'w', encoding='utf-8') as SM:
       for line in F:
-          doi, date = line.strip().split('\t')
-          link = f'https://doi.org/{doi}'
-          try:
-              retrieved_data = req.get(link, timeout=10)
-              my_raw_data = retrieved_data.content
-              if b'%PDF' in my_raw_data:
-                  SM.write(f"{link}\t{date}\tPDF\n")
-              else:
-                  SM.write(f"{link}\t{date}\tHTML\n")
-          except Exception as e:
-              print(f"Failed to retrieve {link}: {e}")
+          parts = line.strip().split('\t')
+          if len(parts) >= 2:
+              doi, date = parts[:2]  # Ensure we only unpack the first two values
+              link = f'https://doi.org/{doi}'
+              try:
+                  retrieved_data = req.get(link, timeout=10)
+                  my_raw_data = retrieved_data.content
+                  if b'%PDF' in my_raw_data:
+                      SM.write(f"{link}\t{date}\tPDF\n")
+                  else:
+                      SM.write(f"{link}\t{date}\tHTML\n")
+              except Exception as e:
+                  print(f"Failed to retrieve {link}: {e}")
+          else:
+              # Handle lines that don't have the expected format
+              print(f"Skipping line due to unexpected format: {line}")
+
 
 def tendency():
   Searched_material = 'Searched_material.txt'
