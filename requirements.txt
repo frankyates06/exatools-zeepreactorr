@@ -1,0 +1,11 @@
+streamlit
+bs4
+requests
+PyPDF2
+io
+os
+re
+numpy
+matplotlib 
+matplotlib.pyplot
+urllib.request

@@ -1,0 +1,10 @@
+https://doi.org/10.1155/2012/251364	2012	sequencing
+https://doi.org/10.1016/j.ygeno.2015.11.003	2016	sequencing
+https://doi.org/10.1177/1040638720905833	2020	sequencing
+https://doi.org/10.1016/j.gpb.2016.05.004	2016	sequencing
+https://doi.org/10.3390/ijms21218345	2020	sequencing
+https://doi.org/10.1146/annurev-genom-101722-103045	2023	sequencing
+https://doi.org/10.3390/biom11081111	2021	sequencing
+https://doi.org/10.1101/gr.107524.110	2010	sequencing
+https://doi.org/10.3390/s17030588	2017	sequencing
+https://doi.org/10.1002/bmb.21561	2021	sequencing

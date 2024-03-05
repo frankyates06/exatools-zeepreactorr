@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "repl-nix-exatools-zeepreactorr"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "repl_nix_exatools_zeepreactorr"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+beautifulsoup4 = "^4.12.3"
+matplotlib = "^3.8.3"
+numpy = "^1.26.4"
+requests = "^2.31.0"
+streamlit = "^1.31.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
