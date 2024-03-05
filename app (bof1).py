@@ -155,24 +155,50 @@ def main():
     search_terms = st.text_input("Enter your search keywords (e.g., prokaryote sequencing):")
     technology_keywords = st.text_input("Enter technology keywords (e.g., Illumina Nanopore):")
 
-    if search_terms and technology_keywords:
-        keywords, url = prompt_for_input(search_terms, technology_keywords)
+    # Create a container for status updates
+    status_container = st.container()
 
-        # Create a directory for output
-        dir_output = 'FRANK/'
-        os.makedirs(dir_output, exist_ok=True)
-        os.chdir(dir_output)
+    # Create a button to run the analysis
+    if st.button("Run Analysis"):
+        if search_terms and technology_keywords:
+            keywords, url = prompt_for_input(search_terms, technology_keywords)
 
-        pure_url = 'https://pubmed.ncbi.nlm.nih.gov/'
-        switch_page(url, pure_url)
-        st.success("Articles retrieved successfully, beginning sorting...")
-        sci(keywords)
-        st.success("Sorting done, preparing visual representation...")
-        tendency(keywords)
-        st.success("Figure is ready. Check the trend_bar_graph.png file for the bar graph.")
+            # Create a directory for output
+            dir_output = 'FRANK/'
+            os.makedirs(dir_output, exist_ok=True)
+            os.chdir(dir_output)
 
-        # Display the image
-        st.image("trend_bar_graph.png")
+            pure_url = 'https://pubmed.ncbi.nlm.nih.gov/'
+            status_container.write("Retrieving articles...")
+            switch_page(url, pure_url)
+            status_container.write("Articles retrieved successfully, beginning sorting...")
+            sci(keywords)
+            status_container.write("Sorting done, preparing visual representation...")
+            tendency(keywords)
+            status_container.write("Figure is ready. Check the trend_bar_graph.png file for the bar graph.")
+
+            # Display the image
+            st.image("trend_bar_graph.png")
+
+            # Provide a download link for the generated files
+            with open("trend_bar_graph.png", "rb") as file:
+                btn = st.download_button(
+                    label="Download trend_bar_graph.png",
+                    data=file,
+                    file_name="trend_bar_graph.png",
+                    mime="image/png"
+                )
+
+            with open("Searched_material.txt", "rb") as file:
+                btn = st.download_button(
+                    label="Download Searched_material.txt",
+                    data=file,
+                    file_name="Searched_material.txt",
+                    mime="text/plain"
+                )
+
+        else:
+            status_container.write("Please enter both search keywords and technology keywords.")
 
 if __name__ == "__main__":
     main()
