@@ -13,15 +13,15 @@ def prompt_for_input(search_terms, technology_keywords):
     keywords = search_terms.split() + technology_keywords.split()
     return keywords, f"https://pubmed.ncbi.nlm.nih.gov/?term={'+'.join(search_terms.split())}&filter=simsearch2.ffrft"
 def dl_intel(url, pure_url):
-DOI_trash = open('DOI_trash.txt', 'w')
-client = req.get(url)
-htmldata = client.text
-client.close()
-db = soup(htmldata, "html.parser")
-locator = db.findAll('a', {'class':'docsum-title'}, href=True)
-locator_2 = re.findall(r'(?<=href="/)\w+', str(locator))
-links = [i for i in locator_2]
-clean_links = [str(pure_url + str(i.strip()) + '/') for i in links]
+  DOI_trash = open('DOI_trash.txt', 'w')
+  client = req.get(url)
+  htmldata = client.text
+  client.close()
+  db = soup(htmldata, "html.parser")
+  locator = db.findAll('a', {'class':'docsum-title'}, href=True)
+  locator_2 = re.findall(r'(?<=href="/)\w+', str(locator))
+  links = [i for i in locator_2]
+  clean_links = [str(pure_url + str(i.strip()) + '/') for i in links]
 
 for i in clean_links:
     site_2 = ul.Request(i)
