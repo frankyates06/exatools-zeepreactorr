@@ -12,7 +12,7 @@ import urllib.request as ul
 
 
 # Streamlit app title
-  st.title('PubMed Article Analysis Tool')
+st.title('PubMed Article Analysis Tool')
 
   # Sidebar for user input
   st.sidebar.header('User Input Parameters')
