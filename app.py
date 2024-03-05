@@ -1,7 +1,7 @@
 import streamlit as st
 from bs4 import BeautifulSoup as soup
 import requests as req
-from PyPDF4 import PdfReader
+import PyPDF4
 from io import BytesIO
 import os
 import re
