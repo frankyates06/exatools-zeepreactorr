@@ -2,8 +2,6 @@ streamlit
 bs4
 requests
 PyPDF4
-os
-re
 numpy
 matplotlib 
 matplotlib.pyplot
