@@ -8,6 +8,8 @@ import re
 import numpy as np
 from matplotlib import pyplot as plt
 import urllib.request as ul
+import pandas as pd
+
 
 def prompt_for_input(search_terms, technology_keywords):
     keywords = search_terms.split() + technology_keywords.split()
@@ -64,35 +66,43 @@ def switch_page(url, pure_url):
         K.close()
     Results.close()
 
+
 def sci(keywords):    
-    F = open('Results.txt', 'r', encoding='utf-8')
-    Searched_material = open('Searched_material.txt', 'w', encoding='utf-8')
-    count_bad_links = 0
-    signal = 1
-    for count, line in enumerate(F):
-        pass
-    limite = count + 1
-    F.seek(0)  # Reset file pointer to the beginning
+  F = open('Results.txt', 'r', encoding='utf-8')
+  articles_data = []  # Initialize an empty list to store article data
+  count_bad_links = 0
+  signal = 1
+  for count, line in enumerate(F):
+      pass
+  limite = count + 1
+  F.seek(0)  # Reset file pointer to the beginning
 
-    for i in F.readlines(): 
-        i = i.strip('\n').split('\t')
-        print(f'article n° {str(signal)}\tloading : {np.round((signal/limite)*100)}%')
-        signal += 1
-        link = 'https://doi.org/' + i[0]
-        date = i[1]
-        try:
-            retrieved_data = req.get(link)
-            my_raw_data = retrieved_data.content
-        except Exception:
-            count_bad_links += 1
-            continue
+  for i in F.readlines(): 
+      i = i.strip('\n').split('\t')
+      print(f'article n° {str(signal)}\tloading : {np.round((signal/limite)*100)}%')
+      signal += 1
+      link = 'https://doi.org/' + i[0]
+      date = i[1]
+      try:
+          retrieved_data = req.get(link)
+          my_raw_data = retrieved_data.content
+      except Exception:
+          count_bad_links += 1
+          continue
 
-        output, dico_keywords = process_article(my_raw_data, keywords)
-        Searched_material.write(link + '\t' + date + '\t' + str(max(dico_keywords, key=dico_keywords.get)) + '\n')
+      output, dico_keywords = process_article(my_raw_data, keywords)
+      max_keyword = str(max(dico_keywords, key=dico_keywords.get))
+      articles_data.append({'DOI': link, 'Publication Date': date, 'Top Keyword': max_keyword})
 
-    F.close()
-    Searched_material.close()
-    print_results(dico_keywords, count_bad_links)
+  F.close()
+
+  # Convert articles_data list to DataFrame
+  df_articles = pd.DataFrame(articles_data)
+  # Display the DataFrame in Streamlit
+  st.dataframe(df_articles)
+
+  print_results(dico_keywords, count_bad_links)
+
 
 def process_article(raw_data, keywords):
     output = ''
