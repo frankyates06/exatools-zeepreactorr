@@ -1,6 +1,6 @@
 # Exatool
 
-THIS GITHUN IS A MODIFIED COPY OF THE ORIGINAL EXATOOLS GITHUB  
+THIS GITHUB IS A MODIFIED COPY OF THE ORIGINAL EXATOOLS GITHUB  
 https://github.com/ZeepReactorr/exatools
 
 Exatool is written in python and is able to retrieve the full text of an article (when free). Its purpose is to allow a better understanding of the material used by the scientific community using a keyword research. Python scripts to visualize the data are also available.
