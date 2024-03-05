@@ -15,12 +15,12 @@ import urllib.request as ul
 st.title('PubMed Article Analysis Tool')
 
   # Sidebar for user input
-  st.sidebar.header('User Input Parameters')
-  search_terms = st.sidebar.text_input('Search Keywords', 'prokaryote sequencing')
-  technology_keywords = st.sidebar.text_input('Technology Keywords', 'Illumina Nanopore')
+st.sidebar.header('User Input Parameters')
+search_terms = st.sidebar.text_input('Search Keywords', 'prokaryote sequencing')
+technology_keywords = st.sidebar.text_input('Technology Keywords', 'Illumina Nanopore')
 
 
-  def dl_intel(url, pure_url):
+def dl_intel(url, pure_url):
       DOI_trash = open('DOI_trash.txt', 'w')
       try:
           client = req.get(url)
@@ -56,7 +56,7 @@ st.title('PubMed Article Analysis Tool')
       return True
 
 
-  def switch_page(url, pure_url):
+def switch_page(url, pure_url):
       client = req.get(url)
       htmldata = client.text
       client.close()
@@ -77,7 +77,7 @@ st.title('PubMed Article Analysis Tool')
       Results.close()
 
 
-  def process_article(raw_data, keywords):
+def process_article(raw_data, keywords):
       output = ''
       if b'%PDF' in raw_data:
           try:
@@ -103,13 +103,13 @@ st.title('PubMed Article Analysis Tool')
       return output, dico_keywords
 
 
-  def print_results(dico_keywords, count_bad_links):
+def print_results(dico_keywords, count_bad_links):
       for key, res in dico_keywords.items():
           print(key, res)
       print(f'Failed to retrieve links: {count_bad_links}')
 
 
-  def tendency(keywords):
+def tendency(keywords):
       results = open('Searched_material.txt', 'r', encoding='utf-8')
       list_material_date = [(i.split('\t')[1].strip('\n'), i.split('\t')[2].strip('\n')) for i in results.readlines()]
       date_list = [int(i[0]) for i in list_material_date]
@@ -140,7 +140,7 @@ st.title('PubMed Article Analysis Tool')
       results.close()
 
 
-  def prompt_for_input():
+def prompt_for_input():
    # Define the function to prompt the user for input
       print("Welcome to the PubMed Article Analysis Tool.")
       search_terms = input("Please enter your search keywords (e.g., prokaryote sequencing): ")
@@ -150,7 +150,7 @@ st.title('PubMed Article Analysis Tool')
 
 
 
-  if __name__ == "__main__":
+if __name__ == "__main__":
       keywords, url = prompt_for_input()
       dir_output = 'FRANK/'  # Assuming this directory already exists or handling its creation might be necessary
       os.chdir(dir_output)
