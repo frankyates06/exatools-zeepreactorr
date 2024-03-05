@@ -3,5 +3,4 @@ bs4
 requests
 PyPDF4
 numpy
-matplotlib 
-urllib.request
+matplotlib
