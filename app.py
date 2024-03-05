@@ -124,7 +124,7 @@ def process_article(raw_data, keywords):
   dico_keywords = {keyword: output.count(keyword.lower()) for keyword in keywords}
   return output, dico_keywords
 def print_results(dico_keywords, count_bad_links):
-for key, res in dico_keywords.items():
+  for key, res in dico_keywords.items():
     st.write(f'{key}: {res}')
 st.write(f'Impossible links to retrieve: {count_bad_links}')
 def tendency(keywords):
