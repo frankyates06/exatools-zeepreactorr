@@ -2,7 +2,6 @@ streamlit
 bs4
 requests
 PyPDF4
-io
 os
 re
 numpy
